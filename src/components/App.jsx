@@ -39,7 +39,7 @@ export const App = () => {
         setLoading(true);
         setError(false);
         const fetchedData = await fetchImages(query.split("/")[1], page);
-        setBtnLoadMore(page === 1 && fetchedData.length === 0 ? false : true);
+        setBtnLoadMore(page <= 1 && fetchedData.length === 0 ? false : true);
         setImageElements((prevImageElements) => [
           ...prevImageElements,
           ...fetchedData,
@@ -71,7 +71,7 @@ export const App = () => {
       )}
       {imageElements.length > 0 && <ImageGallery items={imageElements} />}
       {loading && <Loader />}
-      {imageElements.length > 0 && !loading && (
+      {imageElements.length >= 30 && !loading && (
         <LoadMoreBtn isLoad={handleLoadMore} />
       )}
       <div className={css.scroll} ref={scrollRef}></div>
